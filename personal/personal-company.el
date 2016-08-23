@@ -1,0 +1,5 @@
+(require 'prelude-company)
+(prelude-require-package 'company-tern)
+(add-to-list 'company-backends '(company-tern))
+(setq-default company-minimum-prefix-length 1)
+(setq-default company-idle-delay 0.08)

@@ -7,7 +7,8 @@
 ;;; Code:
 
 ;;; make cursor style bar
-(setq-default cursor-type 'bar)
+ (setq-default cursor-type 'bar)
+(set-cursor-color "white")
 
 (scroll-bar-mode -1)
 (delete-selection-mode 1)

@@ -15,8 +15,8 @@
         '(progn ,@body))))
 
 
-;;(setq prelude-theme 'solarized-dark)
-(setq prelude-theme 'solarized-light)
+(setq prelude-theme 'solarized-dark)
+;;(setq prelude-theme 'solarized-light)
 
 
 

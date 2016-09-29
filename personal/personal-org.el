@@ -1,4 +1,5 @@
 (require 'prelude-org)
+;;; Code:
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
@@ -17,7 +18,7 @@
       org-tags-column 80)
 
 
-;; Lots of stuff from http://doc.norang.ca/org-mode.html
+;; ;; Lots of stuff from http://doc.norang.ca/org-mode.html
 
 (defun sanityinc/grab-ditaa (url jar-name)
   "Download URL and extract JAR-NAME as `org-ditaa-jar-path'."
@@ -35,7 +36,7 @@
         (delete-file zip-temp)))))
 
 ()
-(with-eval-after-load 'ob-ditaa
+(after-load 'ob-ditaa
   (unless (file-exists-p org-ditaa-jar-path)
     (let ((jar-name "ditaa0_9.jar")
           (url "http://jaist.dl.sourceforge.net/project/ditaa/ditaa/0.9/ditaa0_9.zip"))
@@ -75,12 +76,12 @@ typical word processor."
     (when (fboundp 'visual-line-mode)
       (visual-line-mode -1))))
 
-;;(add-hook 'org-mode-hook 'buffer-face-mode)
+(add-hook 'org-mode-hook 'buffer-face-mode)
 
 
 (setq org-support-shift-select t)
 
-;;; Capturing
+;; ;;; Capturing
 (global-set-key (kbd "C-c c") 'org-capture)
 
 (setq org-capture-templates
@@ -92,14 +93,14 @@ typical word processor."
 
 
 
-;;; Refiling
+ ;;; Refiling
 
 (setq org-refile-use-cache nil)
 
-; Targets include this file and any file contributing to the agenda - up to 5 levels deep
+                                        ; Targets include this file and any file contributing to the agenda - up to 5 levels deep
 (setq org-refile-targets '((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5)))
 
-(with-eval-after-load 'org-agenda
+(after-load 'org-agenda
   (add-to-list 'org-agenda-after-show-hook 'org-show-entry))
 
 ;; Exclude DONE state tasks from refile targets
@@ -123,7 +124,7 @@ typical word processor."
 (setq org-refile-allow-creating-parent-nodes 'confirm)
 
 
-;;; To-do settings
+ ;;; To-do settings
 
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
@@ -193,7 +194,8 @@ typical word processor."
                         (org-agenda-skip-function
                          '(lambda ()
                             (or (org-agenda-skip-subtree-if 'todo '("PROJECT" "HOLD" "WAITING"))
-                                (org-agenda-skip-subtree-if 'nottododo '("TODO")))))
+                                (org-agenda-skip-subtree-if 'nottododo '("TOD
+O")))))
                         (org-tags-match-list-sublevels t)
                         (org-agenda-sorting-strategy
                          '(category-keep))))
@@ -221,7 +223,7 @@ typical word processor."
 ;;; Org clock
 
 ;; Save the running clock and all clock history when exiting Emacs, load it on startup
-(with-eval-after-load 'org
+(after-load 'org
   (org-clock-persistence-insinuate))
 (setq org-clock-persist t)
 (setq org-clock-in-resume t)
@@ -250,7 +252,7 @@ typical word processor."
 (add-hook 'org-clock-out-hook 'sanityinc/hide-org-clock-from-header-line)
 (add-hook 'org-clock-cancel-hook 'sanityinc/hide-org-clock-from-header-line)
 
-(with-eval-after-load 'org-clock
+(after-load 'org-clock
   (define-key org-clock-mode-line-map [header-line mouse-2] 'org-clock-goto)
   (define-key org-clock-mode-line-map [header-line mouse-1] 'org-clock-menu))
 
@@ -265,7 +267,7 @@ typical word processor."
     (beginning-of-line 0)
     (org-remove-empty-drawer-at "LOGBOOK" (point))))
 
-(with-eval-after-load 'org-clock
+(after-load 'org-clock
   (add-hook 'org-clock-out-hook 'sanityinc/remove-empty-drawer-on-clock-out 'append))
 
 
@@ -330,7 +332,7 @@ typical word processor."
       nil
     (make-directory "images"))
   (call-process-shell-command "gnome-screenshot" nil nil nil nil "-a -f" (concat
-                                                               "\"" filename "\"" ))
+                                                                          "\"" filename "\"" ))
   (insert (concat "[[" filename "]]"))
   (org-display-inline-images)
   )
@@ -338,31 +340,33 @@ typical word processor."
 (global-set-key (kbd "C-c M-s") 'my-screenshot)
 
 
-;; active Org-babel languages
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '(;; other Babel languages
-   (plantuml . t)))
 
-(setq org-plantuml-jar-path
-      (expand-file-name "~/.emacs.d/personal/plugins/plantuml.jar"))
+
 
 
 (prelude-require-package 'org-pomodoro)
 (setq org-pomodoro-keep-killed-pomodoro-time t)
-(with-eval-after-load 'org-agenda
+(after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
-(with-eval-after-load 'org
+(after-load 'org
   (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element))
 
-(with-eval-after-load 'org
+
+(setq org-src-fontify-natively t)
+
+;; ;; active Org-babel languages
+(setq org-plantuml-jar-path
+      (expand-file-name "~/.emacs.d/personal/plugins/plantuml.jar"))
+
+(after-load 'org
   (org-babel-do-load-languages
    'org-babel-load-languages
    `((R . t)
      (ditaa . t)
      (dot . t)
      (emacs-lisp . t)
+     (plantuml . t)
      (gnuplot . t)
      (haskell . nil)
      (latex . t)
@@ -378,5 +382,4 @@ typical word processor."
 
 
 
-(setq org-src-fontify-natively t)
 ;;; personal-org.el ends here

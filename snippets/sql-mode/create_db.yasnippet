@@ -10,7 +10,7 @@ ${2:$(yas/substr yas-text "[^ ]*")}_CDATE DATETIME DEFAULT NULL COMMENT '创建�
 ${2:$(yas/substr yas-text "[^ ]*")}_UDATE DATETIME DEFAULT NULL COMMENT '修改时间',
 ${2:$(yas/substr yas-text "[^ ]*")}_StATUS tinyint default 0 comment '状态 （0：草稿，1：正常数据，2：失效数据）',
 ${2:$(yas/substr yas-text "[^ ]*")}_CUSR varchar(32) DEFAULT NULL COMMENT '申请人UUID',
-${2:$(yas/substr yas-text "[^ ]*")}_CURSNAME varchar(50) DEFAULT NULL COMMENT '申请人姓名',
+${2:$(yas/substr yas-text "[^ ]*")}_CUSRNAME varchar(50) DEFAULT NULL COMMENT '申请人姓名',
 ${2:$(yas/substr yas-text "[^ ]*")}_DEPMANAGERUUID varchar(32) DEFAULT NULL COMMENT '部门经理UUID',
 ${2:$(yas/substr yas-text "[^ ]*")}_DEPMANAGERNAME varchar(32) DEFAULT NULL COMMENT '部门经理姓名',
 $0

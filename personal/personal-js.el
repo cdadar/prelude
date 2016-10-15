@@ -23,3 +23,5 @@
 
 (prelude-require-package 'nodejs-repl)
 (require 'nodejs-repl)
+
+(prelude-require-package 'vue-mode)

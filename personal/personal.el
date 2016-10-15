@@ -7,8 +7,14 @@
 ;;; Code:
 
 ;;; make cursor style bar
- (setq-default cursor-type 'bar)
-(set-cursor-color "white")
+(setq-default cursor-type 'bar)
+
+;; (prelude-require-package 'cursor-chg)
+;; (curchg-default-cursor-color )
+;; (setq evil-default-cursor "#ffffff")
+;; (set-cursor-color "#ffffff")
+(setq default-frame-alist
+      '((cursor-color . "#ffffff")))
 
 (scroll-bar-mode -1)
 (delete-selection-mode 1)
@@ -23,14 +29,15 @@
 (prelude-require-package 'chinese-fonts-setup)
 (require 'chinese-fonts-setup)
 
-
-;; (prelude-require-packages '(swiper counsel))
-;; (ivy-mode 1)
-;; (setq ivy-use-virtual-buffers t)
-;; (global-set-key "\C-s" 'swiper)
-;; (global-set-key (kbd "C-c C-r") 'ivy-resume)
-;; ;;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-;; ;;lobal-set-key (kbd "M-x") 'counsel-M-x)
-;; (global-set-key (kbd "C-h f") 'counsel-describe-function)
-;; (global-set-key (kbd "C-h v") 'counsel-describe-variable)
+(chinese-fonts-setup-enable)
+(prelude-require-packages '(swiper counsel counsel-projectile))
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-h f") 'counsel-describe-function)
+(global-set-key (kbd "C-h v") 'counsel-describe-variable)
+(counsel-projectile-on)
 ;;; personal.el ends here

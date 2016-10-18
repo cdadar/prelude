@@ -30,7 +30,7 @@
 (require 'chinese-fonts-setup)
 
 (chinese-fonts-setup-enable)
-(prelude-require-packages '(swiper counsel counsel-projectile))
+(prelude-require-packages '(swiper counsel counsel-projectile ag))
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (global-set-key "\C-s" 'swiper)

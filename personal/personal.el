@@ -30,14 +30,9 @@
 (require 'chinese-fonts-setup)
 
 (chinese-fonts-setup-enable)
-(prelude-require-packages '(swiper counsel counsel-projectile ag))
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(global-set-key "\C-s" 'swiper)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-h f") 'counsel-describe-function)
-(global-set-key (kbd "C-h v") 'counsel-describe-variable)
-(counsel-projectile-on)
+
+;;同时编辑多个区域的插件
+;; (prelude-require-package 'iedit)
+;; (global-set-key (kbd "M-s e") 'iedit-mode)
+
 ;;; personal.el ends here

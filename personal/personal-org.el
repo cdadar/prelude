@@ -1,5 +1,13 @@
 (require 'prelude-org)
 ;;; Code:
+
+
+
+(prelude-require-package 'org-fstree)
+
+
+(prelude-require-package 'org-cliplink)
+
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
@@ -18,31 +26,31 @@
       org-tags-column 80)
 
 
-;; ;; Lots of stuff from http://doc.norang.ca/org-mode.html
+;; Lots of stuff from http://doc.norang.ca/org-mode.html
 
-;; (defun sanityinc/grab-ditaa (url jar-name)
-;;   "Download URL and extract JAR-NAME as `org-ditaa-jar-path'."
-;;   ;; TODO: handle errors
-;;   (message "Grabbing " jar-name " for org.")
-;;   (let ((zip-temp (make-temp-name "emacs-ditaa")))
-;;     (unwind-protect
-;;         (progn
-;;           (when (executable-find "unzip")
-;;             (url-copy-file url zip-temp)
-;;             (shell-command (concat "unzip -p " (shell-quote-argument zip-temp)
-;;                                    " " (shell-quote-argument jar-name) " > "
-;;                                    (shell-quote-argument org-ditaa-jar-path)))))
-;;       (when (file-exists-p zip-temp)
-;;         (delete-file zip-temp)))))
+(defun sanityinc/grab-ditaa (url jar-name)
+  "Download URL and extract JAR-NAME as `org-ditaa-jar-path'."
+  ;; TODO: handle errors
+  (message "Grabbing " jar-name " for org.")
+  (let ((zip-temp (make-temp-name "emacs-ditaa")))
+    (unwind-protect
+        (progn
+          (when (executable-find "unzip")
+            (url-copy-file url zip-temp)
+            (shell-command (concat "unzip -p " (shell-quote-argument zip-temp)
+                                   " " (shell-quote-argument jar-name) " > "
+                                   (shell-quote-argument org-ditaa-jar-path)))))
+      (when (file-exists-p zip-temp)
+        (delete-file zip-temp)))))
 
-;; ()
-;; (after-load 'ob-ditaa
-;;   (unless (file-exists-p org-ditaa-jar-path)
-;;     (let ((jar-name "ditaa0_9.jar")
-;;           (url "http://jaist.dl.sourceforge.net/project/ditaa/ditaa/0.9/ditaa0_9.zip"))
-;;       (setq org-ditaa-jar-path (expand-file-name jar-name (file-name-directory user-init-file)))
-;;       (unless (file-exists-p org-ditaa-jar-path)
-;;         (sanityinc/grab-ditaa url jar-name)))))
+(after-load 'ob-ditaa
+  (unless (and (boundp 'org-ditaa-jar-path)
+               (file-exists-p org-ditaa-jar-path))
+    (let ((jar-name "ditaa0_9.jar")
+          (url "http://jaist.dl.sourceforge.net/project/ditaa/ditaa/0.9/ditaa0_9.zip"))
+      (setq org-ditaa-jar-path (expand-file-name jar-name (file-name-directory user-init-file)))
+      (unless (file-exists-p org-ditaa-jar-path)
+        (sanityinc/grab-ditaa url jar-name)))))
 
 
 
@@ -76,12 +84,13 @@ typical word processor."
     (when (fboundp 'visual-line-mode)
       (visual-line-mode -1))))
 
-(add-hook 'org-mode-hook 'buffer-face-mode)
+;;(add-hook 'org-mode-hook 'buffer-face-mode)
 
 
 (setq org-support-shift-select t)
 
-;; ;;; Capturing
+;;; Capturing
+
 (global-set-key (kbd "C-c c") 'org-capture)
 
 (setq org-capture-templates
@@ -89,15 +98,15 @@ typical word processor."
          "* TODO %?\n%U\n" :clock-resume t)
         ("n" "note" entry (file "~/data/org-model/capture.org")
          "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
-        ))
+        )
+      )
 
 
-
- ;;; Refiling
+;;; Refiling
 
 (setq org-refile-use-cache nil)
 
-                                        ; Targets include this file and any file contributing to the agenda - up to 5 levels deep
+; Targets include this file and any file contributing to the agenda - up to 5 levels deep
 (setq org-refile-targets '((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5)))
 
 (after-load 'org-agenda
@@ -124,13 +133,13 @@ typical word processor."
 (setq org-refile-allow-creating-parent-nodes 'confirm)
 
 
- ;;; To-do settings
+;;; To-do settings
 
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
-              (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f!/!)")
               (sequence "PROJECT(p)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")
-              (sequence "WAITING(w@/!)" "HOLD(h)" "|" "CANCELLED(c@/!)"))))
+              (sequence "WAITING(w@/!)" "DELEGATED(e!)" "HOLD(h)" "|" "CANCELLED(c@/!)")))
+      org-todo-repeat-to-state "NEXT")
 
 (setq org-todo-keyword-faces
       (quote (("NEXT" :inherit warning)
@@ -193,14 +202,19 @@ typical word processor."
                         ;; TODO: skip if a parent is a project
                         (org-agenda-skip-function
                          '(lambda ()
-                            (or (org-agenda-skip-subtree-if 'todo '("PROJECT" "HOLD" "WAITING"))
-                                (org-agenda-skip-subtree-if 'nottododo '("TOD
-O")))))
+                            (or (org-agenda-skip-subtree-if 'todo '("PROJECT" "HOLD" "WAITING" "DELEGATED"))
+                                (org-agenda-skip-subtree-if 'nottododo '("TODO")))))
                         (org-tags-match-list-sublevels t)
                         (org-agenda-sorting-strategy
                          '(category-keep))))
             (tags-todo "/WAITING"
                        ((org-agenda-overriding-header "Waiting")
+                        (org-agenda-tags-todo-honor-ignore-options t)
+                        (org-agenda-todo-ignore-scheduled 'future)
+                        (org-agenda-sorting-strategy
+                         '(category-keep))))
+            (tags-todo "/DELEGATED"
+                       ((org-agenda-overriding-header "Delegated")
                         (org-agenda-tags-todo-honor-ignore-options t)
                         (org-agenda-todo-ignore-scheduled 'future)
                         (org-agenda-sorting-strategy
@@ -258,8 +272,6 @@ O")))))
 
 
 
-
-
 ;; Remove empty LOGBOOK drawers on clock out
 (defun sanityinc/remove-empty-drawer-on-clock-out ()
   (interactive)
@@ -277,68 +289,10 @@ O")))))
 
 
 
-
-(defun org-summary-todo (n-done n-not-done)
-  "Swith entry to DONE when all subentries are done, to TODO otherwise."
-  (let (org-log-done org-log-states)   ; turn off logging.
-    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
-
-
-
 ;;; Archiving
 
 (setq org-archive-mark-done nil)
 (setq org-archive-location "%s_archive::* Archive")
-
-;; Use XeLaTeX to export PDF in Org-mode
-;; (require 'org-latex)
-;; (setq org-export-latex-listings t)
-;; (add-to-list 'org-export-latex-classes
-;;              '("org-article"
-;;                "\\documentclass{org-article}
-;;                  [NO-DEFAULT-PACKAGES]
-;;                  [EXTRA]"
-;;                ("\\section{%s}" . "\\section*{%s}")
-;;                ("\\subsection{%s}" . "\\subsection*{%s}")
-;;                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-;;                ("\\paragraph{%s}" . "\\paragraph*{%s}")
-;;                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-
-;; Use XeLaTeX to export PDF in Org-mode
-(setq org-latex-pdf-process
-      '("xelatex -interaction nonstopmode -output-directory %o %f"
-        "xelatex -interaction nonstopmode -output-directory %o %f"
-        "xelatex -interaction nonstopmode -output-directory %o %f"))
-
-(setq org-directory "~/data/org-model")
-;;(setq org-mobile-files (list "~/data/org-model/plan.org"))
-(setq org-mobile-inbox-for-pull "~/Dropbox/MobileOrg/index.org")
-(setq org-mobile-directory "~/Dropbox/MobileOrg")
-;; screenshot in org-mode
-;; modified by gift.young@gmail.com
-;; based on [http://praktikanten.brueckenschlaeger.org/2010/11/28/screenshots-in-org-mode]
-
-(add-hook 'org-mode-hook 'iimage-mode) ; enable iimage-mode for org-mode
-(defun my-screenshot ()
-  "Take a screenshot into a unique-named file in the current buffer file
- directory and insert a link to this file."
-  (interactive)
-  (setq filename
-        (concat (make-temp-name
-                 (concat (file-name-directory (buffer-file-name)) "images/" ) ) ".png"))
-  (if (file-accessible-directory-p (concat (file-name-directory
-                                            (buffer-file-name)) "images/"))
-      nil
-    (make-directory "images"))
-  (call-process-shell-command "gnome-screenshot" nil nil nil nil "-a -f" (concat
-                                                                          "\"" filename "\"" ))
-  (insert (concat "[[" filename "]]"))
-  (org-display-inline-images)
-  )
-
-(global-set-key (kbd "C-c M-s") 'my-screenshot)
-
 
 
 
@@ -349,13 +303,15 @@ O")))))
 (after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
+
+
+
+
 (after-load 'org
   (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element))
 
-
 (setq org-src-fontify-natively t)
 
-;; ;; active Org-babel languages
 (setq org-plantuml-jar-path
       (expand-file-name "~/.emacs.d/personal/plugins/plantuml.jar"))
 
@@ -363,10 +319,9 @@ O")))))
   (org-babel-do-load-languages
    'org-babel-load-languages
    `((R . t)
-     ;; (ditaa . t)
+     (ditaa . t)
      (dot . t)
      (emacs-lisp . t)
-     (plantuml . t)
      (gnuplot . t)
      (haskell . nil)
      (latex . t)
@@ -378,8 +333,42 @@ O")))))
      (screen . nil)
      (,(if (locate-library "ob-sh") 'sh 'shell) . t)
      (sql . nil)
+     (plantuml . t)
      (sqlite . t))))
 
 
+;; Use XeLaTeX to export PDF in Org-mode
+(setq org-latex-pdf-process
+      '("xelatex -interaction nonstopmode -output-directory %o %f"
+        "xelatex -interaction nonstopmode -output-directory %o %f"
+        "xelatex -interaction nonstopmode -output-directory %o %f"))
 
-;;; personal-org.el ends here
+;; org-mobile
+(setq org-directory "~/data/org-model")
+;;(setq org-mobile-files (list "~/data/org-model/plan.org"))
+(setq org-mobile-inbox-for-pull "~/Dropbox/MobileOrg/index.org")
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
+
+
+;; screenshot in org-mode
+;; modified by gift.young@gmail.com
+;; based on [http://praktikanten.brueckenschlaeger.org/2010/11/28/screenshots-in-org-mode]
+
+(defun my-org-screenshot ()
+  "Take a screenshot into a unique-named file in the current buffer file
+ directory and insert a link to this file."
+  (interactive)
+  (setq filename
+        (concat (make-temp-name
+                 (concat (file-name-directory (buffer-file-name)) "images/" ) ) ".png"))
+  (if (file-accessible-directory-p (concat (file-name-directory
+                                            (buffer-file-name)) "images/"))
+      nil
+   (make-directory "images"))
+  (call-process-shell-command "scrot" nil nil nil nil " -s " (concat
+                                                              "\"" filename "\"" ))
+  (insert (concat "[[" filename "]]"))
+  (org-display-inline-images)
+)
+
+(global-set-key (kbd "C-c M-s") 'my-org-screenshot)

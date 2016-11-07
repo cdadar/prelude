@@ -3,6 +3,7 @@
   "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
 (setq markdown-css-dir "~/.emacs.d/personal/plugins/markdown-mode-css/css")
 (setq markdown-css-theme "clearness")
 

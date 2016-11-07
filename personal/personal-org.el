@@ -1,12 +1,6 @@
 (require 'prelude-org)
-;;; Code:
 
-
-
-(prelude-require-package 'org-fstree)
-
-
-(prelude-require-package 'org-cliplink)
+(prelude-require-packages '(org-fstree org-cliplink))
 
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)

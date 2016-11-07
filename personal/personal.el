@@ -35,4 +35,9 @@
 ;; (prelude-require-package 'iedit)
 ;; (global-set-key (kbd "M-s e") 'iedit-mode)
 
+;; (prelude-require-packages '(editorconfig))
+;; (require 'editorconfig)
 ;;; personal.el ends here
+
+;;禁止 Emacs 自动生成备份文件
+(setq make-backup-files nil)

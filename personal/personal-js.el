@@ -24,4 +24,8 @@
 (prelude-require-package 'nodejs-repl)
 (require 'nodejs-repl)
 
+(add-hook 'json-mode-hook
+          (lambda ()
+            (setq js-indent-level 2)))
+
 (prelude-require-package 'vue-mode)

@@ -6,7 +6,7 @@
  '(delete-selection-mode nil)
  '(js-indent-level 2)
  '(markdown-command
-   "~/.cabal/bin/pandoc -s -c /home/chen/.emacs.d/personal/plugins/markdown-mode-css/github.css --mathjax --highlight-style espresso")
+   "~/.cabal/bin/pandoc -s -c /home/chen/.emacs.d/personal/plugins/github.css --mathjax --highlight-style espresso")
  '(org-agenda-files
    (quote
     ("~/data/org-model/projects.org" "~/data/org-model/plan.org")))

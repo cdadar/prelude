@@ -13,3 +13,9 @@
 (autoload 'table-insert "table" "WYGIWYS table editor")
 ;; (custom-set-variables
 ;;  (markdown-command "~/.cabal/bin/pandoc"))
+
+
+(defun chen/markdown-to-html ()
+  (interactive)
+  (start-process "grip" "*gfm-to-html*" "grip" (buffer-file-name) "5000")
+  (browse-url (format "http://localhost:5000/%s.%s" (file-name-base) (file-name-extension (buffer-file-name)))))

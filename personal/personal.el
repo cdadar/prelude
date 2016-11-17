@@ -41,3 +41,8 @@
 
 ;;禁止 Emacs 自动生成备份文件
 (setq make-backup-files nil)
+
+
+;; 将所选区域缩小到其先前的带大小的快捷键
+(require 'expand-region)
+(global-set-key (kbd "C-|") 'er/contract-region)

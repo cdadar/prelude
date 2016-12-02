@@ -157,7 +157,7 @@ typical word processor."
         org-agenda-span 'day
         org-agenda-include-diary nil
         org-agenda-sorting-strategy
-        '((agenda habit-down time-up user-defined-up effort-up category-keep)
+        '((agenda category-keep deadline-up habit-down time-up user-defined-up effort-up)
           (todo category-up effort-up)
           (tags category-up effort-up)
           (search category-up))
@@ -340,8 +340,8 @@ typical word processor."
 ;; org-mobile
 (setq org-directory "~/data/org-model")
 ;;(setq org-mobile-files (list "~/data/org-model/plan.org"))
-(setq org-mobile-inbox-for-pull "~/Dropbox/MobileOrg/index.org")
-(setq org-mobile-directory "~/Dropbox/MobileOrg")
+(setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg/index.org")
+(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
 
 
 ;; screenshot in org-mode
@@ -368,6 +368,8 @@ typical word processor."
 (global-set-key (kbd "C-c M-s") 'my-org-screenshot)
 
 
+
+(prelude-require-package 'ox-gfm)
 
 (require 'ox-latex)
 (add-to-list 'org-latex-classes

@@ -9,3 +9,5 @@
 (define-abbrev-table 'global-abbrev-table '(
                                             ("8js" "javascript")
                                             ))
+
+(prelude-require-package 'dumb-jump)

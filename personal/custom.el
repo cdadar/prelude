@@ -8,7 +8,7 @@
  '(erc-track-enable-keybindings nil)
  '(js-indent-level 2)
  '(markdown-command
-   "~/.cabal/bin/pandoc -s -c /home/chen/.emacs.d/personal/plugins/github.css --mathjax --highlight-style espresso")
+   "~/.cabal/bin/pandoc -s -c ~/.emacs.d/personal/plugins/github.css --mathjax --highlight-style espresso")
  '(org-agenda-files
    (quote
     ("~/data/org-model/plan.org" "~/data/org-model/projects.org")))
@@ -20,7 +20,7 @@
      (search category-up))))
  '(package-selected-packages
    (quote
-    (sql-indent dumb-jump ox-gfm solarized vlf vimrc-mode org-pomodoro org-cliplink org-fstree markdown-mode+ markdown-mode vue-mode nodejs-repl js-comint js2-refactor hungry-delete emmet-mode company-tern chinese-fonts-setup yaml-mode web-mode scss-mode geiser ensime scala-mode yari inf-ruby ruby-tools company-anaconda anaconda-mode company-auctex cdlatex auctex zop-to-char zenburn-theme which-key volatile-highlights undo-tree solarized-theme smex smartrep smartparens smart-mode-line slime rainbow-mode rainbow-delimiters ov operate-on-number move-text magit json-mode js2-mode imenu-anywhere ido-ubiquitous helm-projectile helm-descbinds helm-ag guru-mode grizzl god-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck flx-ido expand-region elisp-slime-nav easy-kill discover-my-major diminish diff-hl crux company cider browse-kill-ring beacon anzu ace-window)))
+    (org-mobile-sync sql-indent dumb-jump ox-gfm solarized vlf vimrc-mode org-pomodoro org-cliplink org-fstree markdown-mode+ markdown-mode vue-mode nodejs-repl js-comint js2-refactor hungry-delete emmet-mode company-tern chinese-fonts-setup yaml-mode web-mode scss-mode geiser ensime scala-mode yari inf-ruby ruby-tools company-anaconda anaconda-mode company-auctex cdlatex auctex zop-to-char zenburn-theme which-key volatile-highlights undo-tree solarized-theme smex smartrep smartparens smart-mode-line slime rainbow-mode rainbow-delimiters ov operate-on-number move-text magit json-mode js2-mode imenu-anywhere ido-ubiquitous helm-projectile helm-descbinds helm-ag guru-mode grizzl god-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck flx-ido expand-region elisp-slime-nav easy-kill discover-my-major diminish diff-hl crux company cider browse-kill-ring beacon anzu ace-window)))
  '(vlf-application (quote dont-ask)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

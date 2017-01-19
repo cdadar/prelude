@@ -8,6 +8,7 @@
 (add-to-list 'auto-mode-alist '("\\.component\\'" . web-mode)) ; salesforce
 (add-to-list 'auto-mode-alist '("\\.wp\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx$" . 'web-mode))
 (add-to-list 'auto-mode-alist '("\\.tmpl\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.module\\'" . web-mode))
@@ -27,13 +28,14 @@
 (add-to-list 'auto-mode-alist '("\\.rhtml\\(\\.erb\\)?\\'" . web-mode)) ; ruby
 (add-to-list 'auto-mode-alist '("\\.jst\\.ejs\\'"  . web-mode)) ; ruby
 
+
 (defun flymake-html-init ()
-       (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                          'flymake-create-temp-inplace))
-              (local-file (file-relative-name
-                           temp-file
-                           (file-name-directory buffer-file-name))))
-         (list "tidy" (list local-file))))
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                     'flymake-create-temp-inplace))
+         (local-file (file-relative-name
+                      temp-file
+                      (file-name-directory buffer-file-name))))
+    (list "tidy" (list local-file))))
 
 (defun flymake-html-load ()
   (interactive)
@@ -75,3 +77,16 @@
 
      (define-key web-mode-map (kbd "C-c C-v") 'browse-url-of-file)
      ))
+
+
+(prelude-require-package 'emmet-mode)
+(require 'emmet-mode)
+(add-hook 'html-mode-hook 'emmet-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'web-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook  'emmet-mode)
+
+(add-hook 'emmet-mode-hook (lambda () (
+                                       (setq emmet-move-cursor-between-quotes t)
+                                       (setq emmet-expand-jsx-className? t)
+                                       (setq emmet-self-closing-tag-style " /"))))

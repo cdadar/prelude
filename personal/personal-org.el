@@ -289,9 +289,6 @@ typical word processor."
 (setq org-archive-location "%s_archive::* Archive")
 
 
-
-
-
 (prelude-require-package 'org-pomodoro)
 (setq org-pomodoro-keep-killed-pomodoro-time t)
 (after-load 'org-agenda

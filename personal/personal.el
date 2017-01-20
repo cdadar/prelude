@@ -46,3 +46,5 @@
 ;; 将所选区域缩小到其先前的带大小的快捷键
 (require 'expand-region)
 (global-set-key (kbd "C-|") 'er/contract-region)
+
+(prelude-require-package 'dumb-jump)

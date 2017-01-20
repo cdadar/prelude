@@ -10,4 +10,7 @@
                                             ("8js" "javascript")
                                             ))
 
-(prelude-require-package 'dumb-jump)
+
+
+
+(setq company-dabbrev-downcase nil)

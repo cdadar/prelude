@@ -48,17 +48,6 @@
          '(("line \\([0-9]+\\) column \\([0-9]+\\) - \\(Warning\\|Error\\): \\(missing <\/[a-z0-9A-Z]+>.*\\)" nil 1 2 4)))
     (flymake-mode 1)))
 
-(defun web-mode-hook-setup ()
-  (unless (is-buffer-file-temp)
-    (flymake-html-load)
-    (enable-flyspell-mode-conditionally)
-    (setq flyspell-check-doublon nil)
-    (remove-hook 'yas-after-exit-snippet-hook
-                 'web-mode-yasnippet-exit-hook t)
-    (remove-hook 'yas/after-exit-snippet-hook
-                 'web-mode-yasnippet-exit-hook t)))
-
-(add-hook 'web-mode-hook 'web-mode-hook-setup)
 
 (eval-after-load 'web-mode
   '(progn
@@ -77,16 +66,3 @@
 
      (define-key web-mode-map (kbd "C-c C-v") 'browse-url-of-file)
      ))
-
-
-(prelude-require-package 'emmet-mode)
-(require 'emmet-mode)
-(add-hook 'html-mode-hook 'emmet-mode)
-(add-hook 'sgml-mode-hook 'emmet-mode)
-(add-hook 'web-mode-hook 'emmet-mode)
-(add-hook 'css-mode-hook  'emmet-mode)
-
-(add-hook 'emmet-mode-hook (lambda () (
-                                       (setq emmet-move-cursor-between-quotes t)
-                                       (setq emmet-expand-jsx-className? t)
-                                       (setq emmet-self-closing-tag-style " /"))))

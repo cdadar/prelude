@@ -24,7 +24,7 @@
 ;; (setq exec-path (append exec-path '("/usr/local/bin")))
 
 ;;Disabling whitespace-mode
-(setq prelude-whitespace nil)
+(setq prelude-whitespace t)
 
 ;;Disable flyspell-mode
 (setq prelude-flyspell nil)

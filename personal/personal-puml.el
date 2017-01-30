@@ -1,3 +1,2 @@
-;; (prelude-require-package 'puml-mode)
-;; (add-to-list 'auto-mode-alist '("\\.puml\\'" . puml-mode))
-;; (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . puml-mode))
+(prelude-require-package 'plantuml-mode)
+(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))

@@ -157,7 +157,7 @@ typical word processor."
         org-agenda-span 'day
         org-agenda-include-diary nil
         org-agenda-sorting-strategy
-        '((agenda category-keep deadline-up habit-down time-up user-defined-up effort-up)
+        '((agenda category-up deadline-up scheduled-up habit-down time-up user-defined-up effort-up)
           (todo category-up effort-up)
           (tags category-up effort-up)
           (search category-up))

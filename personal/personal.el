@@ -1,4 +1,4 @@
-;;; personal.el --- Emacs Prelude: Personal settings
+ ;;; personal.el --- Emacs Prelude: Personal settings
 ;;
 ;;; Commentary:
 ;; Personal settings to augment those of Prelude
@@ -48,3 +48,8 @@
 (global-set-key (kbd "C-|") 'er/contract-region)
 
 (prelude-require-package 'dumb-jump)
+
+(setq ispell-extra-args '("--lang=en_US"))
+
+
+(windmove-default-keybindings 'super)

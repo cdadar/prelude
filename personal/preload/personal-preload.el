@@ -27,4 +27,4 @@
 (setq prelude-whitespace t)
 
 ;;Disable flyspell-mode
-(setq prelude-flyspell nil)
+(setq prelude-flyspell t)

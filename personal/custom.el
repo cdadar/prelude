@@ -4,6 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(cfs--current-profile "profile1" t)
+ '(cfs--profiles-steps (quote (("profile1" . 4))) t)
  '(delete-selection-mode nil)
  '(erc-track-enable-keybindings nil)
  '(js-indent-level 2)
@@ -20,7 +21,7 @@
      (search category-up))))
  '(package-selected-packages
    (quote
-    (projectile-rails ruby-hash-syntax robe bundler dockerfile-mode plantuml-mode slime-company sql-indent dumb-jump ox-gfm solarized vlf vimrc-mode org-pomodoro org-cliplink org-fstree markdown-mode+ markdown-mode vue-mode nodejs-repl js-comint js2-refactor hungry-delete emmet-mode company-tern chinese-fonts-setup yaml-mode web-mode scss-mode geiser ensime scala-mode yari inf-ruby ruby-tools company-anaconda anaconda-mode company-auctex cdlatex auctex zop-to-char zenburn-theme which-key volatile-highlights undo-tree solarized-theme smex smartrep smartparens smart-mode-line slime rainbow-mode rainbow-delimiters ov operate-on-number move-text magit json-mode js2-mode imenu-anywhere ido-ubiquitous helm-projectile helm-descbinds helm-ag guru-mode grizzl god-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck flx-ido expand-region elisp-slime-nav easy-kill discover-my-major diminish diff-hl crux company cider browse-kill-ring beacon anzu ace-window)))
+    (gtags company-c-headers neotree projectile-rails ruby-hash-syntax robe bundler dockerfile-mode plantuml-mode slime-company sql-indent dumb-jump ox-gfm solarized vlf vimrc-mode org-pomodoro org-cliplink org-fstree markdown-mode+ markdown-mode vue-mode nodejs-repl js-comint js2-refactor hungry-delete emmet-mode company-tern chinese-fonts-setup yaml-mode web-mode scss-mode geiser ensime scala-mode yari inf-ruby ruby-tools company-anaconda anaconda-mode company-auctex cdlatex auctex zop-to-char zenburn-theme which-key volatile-highlights undo-tree solarized-theme smex smartrep smartparens smart-mode-line slime rainbow-mode rainbow-delimiters ov operate-on-number move-text magit json-mode js2-mode imenu-anywhere ido-ubiquitous helm-projectile helm-descbinds helm-ag guru-mode grizzl god-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck flx-ido expand-region elisp-slime-nav easy-kill discover-my-major diminish diff-hl crux company cider browse-kill-ring beacon anzu ace-window)))
  '(plantuml-jar-path "/home/chen/source/prelude/personal/plugins/plantuml.jar")
  '(vlf-application (quote dont-ask)))
 (custom-set-faces

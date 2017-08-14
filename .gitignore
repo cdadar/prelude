@@ -21,6 +21,7 @@ tramp
 /var/pcache
 .emacs.desktop
 .emacs.desktop.lock
+network-security.data
 .org-id-locations
 abbrev_defs
 ditaa0_9.jar
